@@ -1,0 +1,675 @@
+# Загрузка магазина
+- model: backend.shop
+  pk: 1
+  fields:
+    name: Связной
+    url: https://www.svyaznoy.ru/
+
+# Загрузка категорий
+- model: backend.category
+  pk: 1
+  fields:
+    id: 224
+    name: Смартфоны
+    shops:
+    - 1
+- model: backend.category
+  pk: 2
+  fields:
+    id: 15
+    name: Аксессуары
+    shops:
+    - 1
+- model: backend.category
+  pk: 3
+  fields:
+    id: 1
+    name: Flash-накопители
+    shops:
+    - 1
+- model: backend.category
+  pk: 4
+  fields:
+    id: 5
+    name: Телевизоры
+    shops:
+    - 1
+
+# Загрузка товаров
+- model: backend.product
+  pk: 1
+  fields:
+    id: 4216292
+    name: Смартфон Apple iPhone XS Max 512GB (золотистый)
+    category_id: 224 
+- model: backend.product
+  pk: 2
+  fields:
+    id: 4216313
+    name: Смартфон Apple iPhone XR 256GB (красный)
+    category_id: 224 
+- model: backend.product
+  pk: 3
+  fields:
+    id: 4216226
+    name: Смартфон Apple iPhone XR 256GB (черный)
+    category_id: 224 
+- model: backend.product
+  pk: 4
+  fields:
+    id: 4672670
+    name: Смартфон Apple iPhone XR 128GB (синий)
+    category_id: 224 
+- model: backend.product
+  pk: 5
+  fields:
+    id: 1234567
+    name: Smartphone Samsung Galaxy S20 128GB (black)
+    category_id: 15 
+- model: backend.product
+  pk: 6
+  fields:
+    id: 1234568
+    name: Smartphone Samsung Galaxy Note20 256GB (mystic bronze)
+    category_id: 15 
+- model: backend.product
+  pk: 7
+  fields:
+    id: 1235464569
+    name: USB Flash Drive SanDisk Ultra Flair 64GB (silver)
+    category_id: 1 
+- model: backend.product
+  pk: 8
+  fields:
+    id: 1235434570
+    name: USB Flash Drive Kingston DataTraveler 32GB (red)
+    category_id: 1 
+- model: backend.product
+  pk: 9
+  fields:
+    id: 123544571
+    name: Smartphone Xiaomi Mi 10T Pro 256GB (cosmic black)
+    category_id: 1 
+- model: backend.product
+  pk: 10
+  fields:
+    id: 1234572
+    name: Samsung QLED Q90R 65" 4K UHD Smart TV
+    category_id: 5 
+- model: backend.product
+  pk: 11
+  fields:
+    id: 123476573
+    name: LG OLED CX 55" 4K UHD Smart TV
+    category_id: 5 
+- model: backend.product
+  pk: 12
+  fields:
+    id: 1234453574
+    name: Sony Bravia X900H 75" 4K UHD Smart TV
+    category_id: 5 
+- model: backend.product
+  pk: 13
+  fields:
+    id: 123234575
+    name: TCL 6-Series 55" 4K UHD Smart TV
+    category_id: 5 
+- model: backend.product
+  pk: 14
+  fields:
+    id: 123424576
+    name: Vizio P-Series Quantum 65" 4K UHD Smart TV
+    category_id: 5 
+
+# Загрузка параметров
+- model: backend.parameter
+  pk: 1
+  fields:
+    id: 1
+    name: Диагональ (дюйм)
+- model: backend.parameter
+  pk: 2
+  fields:
+    id: 2
+    name: Разрешение (пикс)
+- model: backend.parameter
+  pk: 3
+  fields:
+    id: 3
+    name: Встроенная память (Гб)
+- model: backend.parameter
+  pk: 4
+  fields:
+    id: 4
+    name: Цвет
+- model: backend.parameter
+  pk: 5
+  fields:
+    id: 5
+    name: Screen Size (inches)
+- model: backend.parameter
+  pk: 6
+  fields:
+    id: 6
+    name: Resolution (pixels)
+- model: backend.parameter
+  pk: 7
+  fields:
+    id: 7
+    name: Internal Memory (GB)
+- model: backend.parameter
+  pk: 8
+  fields:
+    id: 8
+    name: Color
+- model: backend.parameter
+  pk: 9
+  fields:
+    id: 9
+    name: Capacity (GB)
+- model: backend.parameter
+  pk: 10
+  fields:
+    id: 10
+    name: Smart TV
+
+# Загрузка инфо о продуктах
+- model: backend.productinfo 
+  pk: 1
+  fields:
+    id: 1
+    name: Смартфон Apple iPhone XS Max 512GB (золотистый)
+    model: apple/iphone/xs-max
+    external_id: 1
+    quantity: 14
+    price: 110000
+    price_rrc: 116990
+    product_id: 4216292
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 2
+  fields:
+    id: 2
+    name: Смартфон Apple iPhone XR 256GB (красный)
+    model: apple/iphone/xr
+    external_id: 2
+    quantity: 9
+    price: 65000
+    price_rrc: 69990
+    product_id: 4216313
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 3
+  fields:
+    id: 3
+    name: Смартфон Apple iPhone XR 256GB (черный)
+    model: apple/iphone/xr
+    external_id: 3
+    quantity: 5
+    price: 65000
+    price_rrc: 69990
+    product_id: 4216226
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 4
+  fields:
+    id: 4
+    name: Смартфон Apple iPhone XR 128GB (синий)
+    model: apple/iphone/xr
+    external_id: 4
+    quantity: 7
+    price: 60000
+    price_rrc: 64990 
+    product_id: 4672670
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 5
+  fields:
+    id: 5
+    name: Smartphone Samsung Galaxy S20 128GB (black)
+    model: samsung/galaxy-s20
+    external_id: 5
+    quantity: 5
+    price: 80000
+    price_rrc: 84990
+    product_id: 1234567
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 6
+  fields:
+    id: 6
+    name: Smartphone Samsung Galaxy Note20 256GB (mystic bronze)
+    model: samsung/galaxy-note20
+    external_id: 6
+    quantity: 3
+    price: 95000
+    price_rrc: 99990
+    product_id: 1234568
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 7
+  fields:
+    id: 7
+    name: USB Flash Drive SanDisk Ultra Flair 64GB (silver)
+    model: sandisk/ultra-flair-64gb
+    external_id: 7
+    quantity: 10
+    price: 1500
+    price_rrc: 1990
+    product_id: 1235464569
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 8
+  fields:
+    id: 8
+    name: USB Flash Drive Kingston DataTraveler 32GB (red)
+    model: kingston/datatraveler-32gb
+    external_id: 8
+    quantity: 8
+    price: 1000
+    price_rrc: 1290
+    product_id: 1235434570
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 9
+  fields:
+    id: 9
+    name: Smartphone Xiaomi Mi 10T Pro 256GB (cosmic black)
+    model: xiaomi/mi-10t-pro
+    external_id: 9
+    quantity: 6
+    price: 70000
+    price_rrc: 74990
+    product_id: 123544571
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 10
+  fields:
+    id: 10 
+    name: Samsung QLED Q90R 65" 4K UHD Smart TV
+    model: samsung/qled-q90r
+    external_id: 10
+    quantity: 4
+    price: 2500
+    price_rrc: 2999
+    product_id: 1234572
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 11
+  fields:
+    id: 11
+    name: LG OLED CX 55" 4K UHD Smart TV
+    model: lg/oled-cx
+    external_id: 11
+    quantity: 7
+    price: 1800
+    price_rrc: 1999
+    product_id: 123476573
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 12
+  fields:
+    id: 12
+    name: Sony Bravia X900H 75" 4K UHD Smart TV
+    model: sony/bravia-x900h
+    external_id: 12
+    quantity: 3
+    price: 3000
+    price_rrc: 3499
+    product_id: 1234453574
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 13
+  fields:
+    id: 13
+    name: TCL 6-Series 55" 4K UHD Smart TV
+    model: tcl/6-series
+    external_id: 13
+    quantity: 10
+    price: 700
+    price_rrc: 799
+    product_id: 123234575
+    shop_id: 1
+- model: backend.productinfo 
+  pk: 14
+  fields:
+    id: 14
+    name: Vizio P-Series Quantum 65" 4K UHD Smart TV
+    model: vizio/p-series-quantum
+    external_id: 14
+    quantity: 5
+    price: 1200
+    price_rrc: 1299
+    product_id: 123424576
+    shop_id: 1
+
+# Загрузка инфо о параметрах
+- model: backend.productparameter 
+  pk: 1
+  fields:
+    id: 1
+    value: 6.5
+    parameter_id: 1
+    product_info_id: 1
+- model: backend.productparameter 
+  pk: 2
+  fields:
+    id: 2
+    value: 2688x1242
+    parameter_id: 2
+    product_info_id: 1
+- model: backend.productparameter 
+  pk: 3
+  fields:
+    id: 3
+    value: 512
+    parameter_id: 3
+    product_info_id: 1
+- model: backend.productparameter 
+  pk: 4
+  fields:
+    id: 4
+    value: золотистый
+    parameter_id: 4
+    product_info_id: 1   
+- model: backend.productparameter 
+  pk: 5
+  fields:
+    id: 5
+    value: 6.1
+    parameter_id: 1
+    product_info_id: 2
+- model: backend.productparameter 
+  pk: 6
+  fields:
+    id: 6
+    value: 1792x828
+    parameter_id: 2
+    product_info_id: 2
+- model: backend.productparameter 
+  pk: 7
+  fields:
+    id: 7
+    value: 256
+    parameter_id: 3
+    product_info_id: 2
+- model: backend.productparameter 
+  pk: 8
+  fields:
+    id: 8
+    value: красный
+    parameter_id: 4
+    product_info_id: 2  
+- model: backend.productparameter 
+  pk: 9
+  fields:
+    id: 9
+    value: 6.1
+    parameter_id: 1
+    product_info_id: 3
+- model: backend.productparameter 
+  pk: 10
+  fields:
+    id: 10
+    value: 1792x828
+    parameter_id: 2
+    product_info_id: 3
+- model: backend.productparameter 
+  pk: 11
+  fields:
+    id: 11
+    value: 256
+    parameter_id: 3
+    product_info_id: 3
+- model: backend.productparameter 
+  pk: 12
+  fields:
+    id: 12
+    value: черный
+    parameter_id: 4
+    product_info_id: 3 
+- model: backend.productparameter 
+  pk: 13
+  fields:
+    id: 13
+    value: 6.1
+    parameter_id: 1
+    product_info_id: 4
+- model: backend.productparameter 
+  pk: 14
+  fields:
+    id: 14
+    value: 1792x828
+    parameter_id: 2
+    product_info_id: 4
+- model: backend.productparameter 
+  pk: 15
+  fields:
+    id: 15
+    value: 256 
+    parameter_id: 3
+    product_info_id: 4
+- model: backend.productparameter 
+  pk: 16
+  fields:
+    id: 16
+    value: синий
+    parameter_id: 4
+    product_info_id: 4 
+- model: backend.productparameter 
+  pk: 17
+  fields:
+    id: 17
+    value: 6.2
+    parameter_id: 5
+    product_info_id: 5
+- model: backend.productparameter 
+  pk: 18
+  fields:
+    id: 18
+    value: 3200x1440
+    parameter_id: 6
+    product_info_id: 5
+- model: backend.productparameter 
+  pk: 19
+  fields:
+    id: 19
+    value: 128 
+    parameter_id: 7
+    product_info_id: 5
+- model: backend.productparameter 
+  pk: 20
+  fields:
+    id: 20
+    value: black
+    parameter_id: 8
+    product_info_id: 5 
+- model: backend.productparameter 
+  pk: 21
+  fields:
+    id: 21
+    value: 6.7
+    parameter_id: 5
+    product_info_id: 6
+- model: backend.productparameter 
+  pk: 22
+  fields:
+    id: 22
+    value: 2400x1080
+    parameter_id: 6
+    product_info_id: 6
+- model: backend.productparameter 
+  pk: 23
+  fields:
+    id: 23
+    value: 256 
+    parameter_id: 7
+    product_info_id: 6
+- model: backend.productparameter 
+  pk: 24
+  fields:
+    id: 24
+    value: mystic bronze
+    parameter_id: 8
+    product_info_id: 6
+- model: backend.productparameter 
+  pk: 25
+  fields:
+    id: 25
+    value: 64 
+    parameter_id: 9
+    product_info_id: 7
+- model: backend.productparameter 
+  pk: 26
+  fields:
+    id: 26
+    value: silver
+    parameter_id: 8
+    product_info_id: 7
+- model: backend.productparameter 
+  pk: 27
+  fields:
+    id: 27
+    value: 32
+    parameter_id: 9
+    product_info_id: 8
+- model: backend.productparameter 
+  pk: 28
+  fields:
+    id: 28
+    value: red
+    parameter_id: 8
+    product_info_id: 8
+- model: backend.productparameter 
+  pk: 29
+  fields:
+    id: 29
+    value: 6.67 
+    parameter_id: 5
+    product_info_id: 9
+- model: backend.productparameter 
+  pk: 30
+  fields:
+    id: 30
+    value: 2400x1080
+    parameter_id: 6
+    product_info_id: 9
+- model: backend.productparameter 
+  pk: 31
+  fields:
+    id: 31
+    value: 256
+    parameter_id: 7
+    product_info_id: 9
+- model: backend.productparameter 
+  pk: 32
+  fields:
+    id: 32
+    value: cosmic black
+    parameter_id: 8
+    product_info_id: 9
+- model: backend.productparameter 
+  pk: 33
+  fields:
+    id: 33
+    value: 65
+    parameter_id: 5
+    product_info_id: 10
+- model: backend.productparameter 
+  pk: 34
+  fields:
+    id: 34
+    value: 3840x2160
+    parameter_id: 6
+    product_info_id: 10
+- model: backend.productparameter 
+  pk: 35
+  fields:
+    id: 35
+    value: true
+    parameter_id: 10
+    product_info_id: 10
+- model: backend.productparameter 
+  pk: 36
+  fields:
+    id: 36
+    value: 55
+    parameter_id: 5
+    product_info_id: 11
+- model: backend.productparameter 
+  pk: 37
+  fields:
+    id: 37
+    value: 3840x2160
+    parameter_id: 6
+    product_info_id: 11
+- model: backend.productparameter 
+  pk: 38
+  fields:
+    id: 38
+    value: true 
+    parameter_id: 10
+    product_info_id: 11
+- model: backend.productparameter 
+  pk: 39
+  fields:
+    id: 33
+    value: 75
+    parameter_id: 5
+    product_info_id: 12
+- model: backend.productparameter 
+  pk: 40
+  fields:
+    id: 34
+    value: 3840x2160
+    parameter_id: 6
+    product_info_id: 12
+- model: backend.productparameter 
+  pk: 41
+  fields:
+    id: 35
+    value: true
+    parameter_id: 10
+    product_info_id: 12
+- model: backend.productparameter 
+  pk: 33
+  fields:
+    id: 33
+    value: 55
+    parameter_id: 5
+    product_info_id: 13
+- model: backend.productparameter 
+  pk: 34
+  fields:
+    id: 34
+    value: 3840x2160
+    parameter_id: 6
+    product_info_id: 13
+- model: backend.productparameter 
+  pk: 35
+  fields:
+    id: 35
+    value: true
+    parameter_id: 10
+    product_info_id: 13
+- model: backend.productparameter 
+  pk: 33
+  fields:
+    id: 33
+    value: 65
+    parameter_id: 5
+    product_info_id: 14
+- model: backend.productparameter 
+  pk: 34
+  fields:
+    id: 34
+    value: 3840x2160
+    parameter_id: 6
+    product_info_id: 14
+- model: backend.productparameter 
+  pk: 35
+  fields:
+    id: 35
+    value: true
+    parameter_id: 10
+    product_info_id: 14

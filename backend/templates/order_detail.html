@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block content %}
+  <h1>Заказ №{{ order.id }}</h1>
+  <p>Создан: {{ order.date }}</p>
+  <p>Статус: {{ order.state }}</p>
+
+  <h2>Товары в заказе:</h2>
+  <ul>
+    {% for item in order_items %}
+      <li>
+        <strong>{{ item.product_info.name }}</strong>
+        <br>
+        Количество: {{ item.quantity }}
+        <br>
+        Цена за единицу: {{ item.product_info.price }} руб.
+        <br>
+        Магазин: {{ item.shop.name }}
+        <br>
+        Общая стоимость: {{ item.product_info.price|mul:item.quantity }} руб.
+      </li>
+    {% empty %}
+      <li>Заказ пуст.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

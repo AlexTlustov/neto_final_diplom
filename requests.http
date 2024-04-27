@@ -1,0 +1,259 @@
+
+### Авторизация
+POST http://127.0.0.1:8000/api/v1/user/login
+Content-Type: application/json
+Authorization: Basic Auth
+{
+  "email": "kipsussspr@gmail.com",
+  "password": "s12323123"
+}
+____________________________________________________________________________________________
+### Регистрация
+POST http://127.0.0.1:8000/api/v1/user/register
+Content-Type: application/json
+{
+        "first_name": "Alex",
+        "last_name": "Aleksandrov",
+        "username": "AlexAlex",
+        "email": "kipsussspr@gmail.com",
+        "password": "s12323123",
+        "company": "AnyCompany",
+        "position": "AnyPosition",
+        "type": "shop"
+}
+____________________________________________________________________________________________
+### Подверждение адреса эл. почты
+POST http://127.0.0.1:8000/api/v1/user/register/confirm
+Content-Type: application/json
+{
+  "email":"kipsupr@gmail.com",
+  "token":"7e5c8ece3110427fc826e979de43f71e60e1bdb140b56"
+}
+____________________________________________________________________________________________
+### Получение данных о пользователе
+GET http://127.0.0.1:8000/api/v1/user/details
+Content-Type: application/json
+Authorization: Token 5721f455ca09096825abd8b57d05028601bb9152
+____________________________________________________________________________________________
+### Изменение данных пользователя
+POST http://127.0.0.1:8000/api/v1/user/details
+Content-Type: application/json
+Authorization: Token ecc0dd089a585fd794f7bbf09d2c9c34247ceb67
+{
+        "first_name": "Alex",
+        "last_name": "Aleksandrov",
+        "username": "AlexAlex",
+        "email": "kipsupr@gmail.com",
+        "password": "sdasdasda223",
+        "company": "AnyCompany",
+        "position": "AnyPosition"
+    }
+____________________________________________________________________________________________
+### Получить все категории
+GET http://127.0.0.1:8000/api/v1/categories
+____________________________________________________________________________________________
+### Получить все магазины
+GET http://127.0.0.1:8000/api/v1/shops
+____________________________________________________________________________________________
+### Получить все продукты
+GET http://127.0.0.1:8000/api/v1/products
+____________________________________________________________________________________________
+### Получить инфо продукта по id
+GET http://127.0.0.1:8000/api/v1/products/<pk>
+____________________________________________________________________________________________
+### Полчить контактную информацию пользователя
+GET http://127.0.0.1:8000/api/v1/user/contact
+Authorization: Token ecc0dd089a585fd794f7bbf09d2c9c34247ceb67
+{               
+  "email": "kipsupr@gmail.com",
+}
+____________________________________________________________________________________________
+### Отправить контактную информацию пользователя
+POST http://127.0.0.1:8000/api/v1/user/contact
+Authorization: Token ecc0dd089a585fd794f7bbf09d2c9c34247ceb67
+Content-Type: application/json
+{               
+  "country": "Russian Federation",
+  "region": "Krasndor krai",
+  "city": "Krasnodar",
+  "street": "Mira",
+  "house": "23",
+  "structure": "3",
+  "building": "0",
+  "apartment": "21",
+  "phone": "85-58-87",
+  "postal_code": "16262"
+                }
+____________________________________________________________________________________________
+### Изменить контактную информацию пользователя 
+PUT http://127.0.0.1:8000/api/v1/user/contact
+Authorization: Token ecc0dd089a585fd794f7bbf09d2c9c34247ceb67
+Content-Type: application/json
+{               
+  "country": "Russian Federation",
+  "region": "Krasndor krai",
+  "city": "Krasnodar",
+  "street": "Mira",
+  "house": "23",
+  "structure": "3",
+  "building": "0",
+  "apartment": "21",
+  "phone": "85-58-87",
+  "postal_code": "16262"
+                }
+____________________________________________________________________________________________
+### Удалить контактную информацию пользователя 
+DELETE http://127.0.0.1:8000/api/v1/user/contact
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type: application/json
+{
+  "id" : "1"
+}
+____________________________________________________________________________________________
+### Добавить товар в корзину (в зависимстоти от id товара будет присвоен разный shop_id)
+POST http://127.0.0.1:8000/api/v1/basket
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+  "items": 
+  [
+    {"id": 1, 
+    "quantity": 3}
+  ]
+}
+____________________________________________________________________________________________
+### Изменить товары в корзине
+PUT http://127.0.0.1:8000/api/v1/basket
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+  "items": 
+  [
+    {"id": 1, 
+    "quantity": 3}
+  ]
+}
+____________________________________________________________________________________________
+### Изменить адрес доставки по user_id (если он заполнен в contact)
+PUT http://127.0.0.1:8000/api/v1/basket
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+  "user_id": 1
+}
+____________________________________________________________________________________________
+### Просмотреть содержимое корзины
+GET http://127.0.0.1:8000/api/v1/basket
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+____________________________________________________________________________________________
+### Удалить содержимое корзины
+DELETE http://127.0.0.1:8000/api/v1/basket
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+  "items": "11"
+}
+_____________________________________________________________________________________________
+### Изменить данные магазина (где id - это id пользователя)
+PUT http://127.0.0.1:8000/api/v1/shops/<int:id>
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+    "id": 1,
+    "name": "Свяzzzzзной",
+    "url": "https://www.svyaznoy.ru/"
+}
+____________________________________________________________________________________________
+### Обновление статуса заказа (подтверждение)
+POST http://127.0.0.1:8000/api/v1/order
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+  "id": "1",
+  "contact" : "1"
+}
+____________________________________________________________________________________________
+### Изменить статус заказ (доступно: cart, new, confirmed, assembled, sent, delivered, canceled)
+PUT http://127.0.0.1:8000/api/v1/order
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+  "id": "1",
+  "state": "sent"
+}
+____________________________________________________________________________________________
+### Получить информацию о заказах клиентов
+GET http://127.0.0.1:8000/api/v1/order
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+____________________________________________________________________________________________
+### Получить информацию о заказах парнеров
+GET http://127.0.0.1:8000/api/v1/partner/orders
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/jsonS
+____________________________________________________________________________________________
+### Получить список партнеров (если пользователь shop и у парнетра есть user_id) 
+GET http://127.0.0.1:8000/api/v1/partner/state
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+____________________________________________________________________________________________
+### Сменить статус партенру
+POST http://127.0.0.1:8000/api/v1/partner/state
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+  "state":"on"
+}
+____________________________________________________________________________________________
+### Изменить данные партнера
+POST http://127.0.0.1:8000/api/v1/partner/update
+Authorization: Token c4ccaf48f9716ccf4dc9687c473e0329fc535231
+Content-Type:application/json
+{
+  "url": "https://euroser.ru/catalog"
+}
+____________________________________________________________________________________________
+### Просмотреть заказы через бразуер (id - это номер заказа)
+http://127.0.0.1:8000/api/v1/orders/
+http://127.0.0.1:8000/api/v1/orders/<id>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

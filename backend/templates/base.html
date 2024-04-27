@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Заказы</h1>
+        <nav>
+            <!-- Здесь можно добавить ссылки на другие страницы -->
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <!-- Здесь можно добавить дополнительную информацию в подвале -->
+    </footer>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

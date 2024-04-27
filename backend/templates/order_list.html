@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Мои заказы</h1>
+  <ul>
+    {% for order in orders %}
+      <li>
+      <a>Заказ №{{ order.id }} от {{ order.date }}</a>
+      </li>
+    {% empty %}
+      <li>У вас пока нет заказов.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
