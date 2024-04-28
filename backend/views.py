@@ -1,6 +1,5 @@
 from django.utils import timezone
 import json
-from rest_framework import generics
 from django.urls import reverse
 from distutils.util import strtobool
 from django.contrib.auth import authenticate
@@ -10,13 +9,7 @@ from django.db import IntegrityError
 from django.db.models import Q, Sum, F
 from django.http import JsonResponse
 from django.views.generic import TemplateView
-from rest_framework import status
-from rest_framework.authtoken.models import Token
-from rest_framework.generics import ListAPIView, get_object_or_404
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from ujson import loads as load_json
-from rest_framework.viewsets import ModelViewSet
 from backend.models import Shop, Category, ProductInfo, Order, OrderItem, Contact, ConfirmEmailToken, User
 from backend.serializers import UserSerializer, CategorySerializer, ShopSerializer, ProductInfoSerializer, \
     OrderItemSerializer, OrderSerializer, ContactSerializer
@@ -26,6 +19,13 @@ from rest_framework.authentication import SessionAuthentication
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.views.generic import DetailView
+from rest_framework import generics
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.generics import ListAPIView, get_object_or_404
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -73,7 +73,8 @@ class ConfirmUser(APIView):
     Класс для подтверждения почтового адреса
     """
     def post(self, request, *args, **kwargs):
-        user = User.objects.filter(email='alex.t@yandex.ru').first()
+        user_email = request.data['email']
+        user = User.objects.filter(email=user_email).first()
         user_id = user.id
         if {'email', 'token'}.issubset(request.data):
             token = ConfirmEmailToken.objects.filter(user_id=user_id).first()

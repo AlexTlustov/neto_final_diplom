@@ -4,19 +4,19 @@ POST http://127.0.0.1:8000/api/v1/user/login
 Content-Type: application/json
 Authorization: Basic Auth
 {
-  "email": "kipsussspr@gmail.com",
-  "password": "s12323123"
+  "email": "alex.tlustov@yandex.ru",
+  "password": "12312ss3"
 }
 ____________________________________________________________________________________________
 ### Регистрация
 POST http://127.0.0.1:8000/api/v1/user/register
 Content-Type: application/json
 {
-        "first_name": "Alex",
-        "last_name": "Aleksandrov",
-        "username": "AlexAlex",
-        "email": "kipsussspr@gmail.com",
-        "password": "s12323123",
+        "first_name": "Alexxxx",
+        "last_name": "Aleksandrovvvvv",
+        "username": "AlexAlexxxxx",
+        "email": "alex.tlustov@yandex.ru",
+        "password": "12312ss3",
         "company": "AnyCompany",
         "position": "AnyPosition",
         "type": "shop"
@@ -26,7 +26,7 @@ ________________________________________________________________________________
 POST http://127.0.0.1:8000/api/v1/user/register/confirm
 Content-Type: application/json
 {
-  "email":"kipsupr@gmail.com",
+  "email":"alex.tlustov@yandex.ru",
   "token":"7e5c8ece3110427fc826e979de43f71e60e1bdb140b56"
 }
 ____________________________________________________________________________________________
