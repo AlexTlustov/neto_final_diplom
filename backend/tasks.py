@@ -5,6 +5,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.apps import apps
 from orders.celery import celery_app
 
 from .models import Shop, Category, Product, Parameter, ProductParameter, ProductInfo
@@ -67,3 +68,4 @@ def get_import(partner, url):
                 )
         return {'Status': True}
     return {'Status': False, 'Errors': 'Url is false'}
+

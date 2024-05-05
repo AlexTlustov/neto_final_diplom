@@ -1,13 +1,3 @@
-
-### Авторизация
-POST http://127.0.0.1:8000/api/v1/user/login
-Content-Type: application/json
-Authorization: Basic Auth
-{
-  "email": "alex.tlustov@yandex.ru",
-  "password": "12312ss3"
-}
-____________________________________________________________________________________________
 ### Регистрация
 POST http://127.0.0.1:8000/api/v1/user/register
 Content-Type: application/json
@@ -20,6 +10,15 @@ Content-Type: application/json
         "company": "AnyCompany",
         "position": "AnyPosition",
         "type": "shop"
+}
+____________________________________________________________________________________________
+### Авторизация
+POST http://127.0.0.1:8000/api/v1/user/login
+Content-Type: application/json
+Authorization: Basic Auth
+{
+  "email": "alex.tlustov@yandex.ru",
+  "password": "12312ss3"
 }
 ____________________________________________________________________________________________
 ### Подверждение адреса эл. почты
@@ -40,14 +39,15 @@ POST http://127.0.0.1:8000/api/v1/user/details
 Content-Type: application/json
 Authorization: Token ecc0dd089a585fd794f7bbf09d2c9c34247ceb67
 {
-        "first_name": "Alex",
-        "last_name": "Aleksandrov",
-        "username": "AlexAlex",
-        "email": "kipsupr@gmail.com",
-        "password": "sdasdasda223",
+        "first_name": "Alexxsssssxx",
+        "last_name": "Aleksandrovvsssssvvv",
+        "username": "AlexAlexxxssssxx",
+        "email": "alex.tlustov@yandex.ru",
+        "password": "12312ss3",
         "company": "AnyCompany",
-        "position": "AnyPosition"
-    }
+        "position": "AnyPosition",
+        "type": "shop"
+}
 ____________________________________________________________________________________________
 ### Получить все категории
 GET http://127.0.0.1:8000/api/v1/categories
@@ -57,9 +57,27 @@ GET http://127.0.0.1:8000/api/v1/shops
 ____________________________________________________________________________________________
 ### Получить все продукты
 GET http://127.0.0.1:8000/api/v1/products
+
+### Загрузить продукты
+POST http://127.0.0.1:8000/api/v1/products
 ____________________________________________________________________________________________
 ### Получить инфо продукта по id
 GET http://127.0.0.1:8000/api/v1/products/<pk>
+____________________________________________________________________________________________
+### Загрузить продукт
+PUT http://127.0.0.1:8000/api/v1/products/
+Content-Type: multipart/form-data
+{               
+  "name": "Смартфон Apple iPhone XS Max 512GB (золотистый)",
+  "model": "apple/iphone/xs-max",
+  "external_id": 1,
+  "product": 4216292,
+  "shop": 1,
+  "quantity": 1,
+  "price": 110000,
+  "price_rrc": 116990,
+  "image": "file"
+}
 ____________________________________________________________________________________________
 ### Полчить контактную информацию пользователя
 GET http://127.0.0.1:8000/api/v1/user/contact

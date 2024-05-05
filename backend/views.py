@@ -9,10 +9,11 @@ from django.db import IntegrityError
 from django.db.models import Q, Sum, F
 from django.http import JsonResponse
 from django.views.generic import TemplateView
+import sentry_sdk
 from ujson import loads as load_json
 from backend.models import Shop, Category, ProductInfo, Order, OrderItem, Contact, ConfirmEmailToken, User
 from backend.serializers import UserSerializer, CategorySerializer, ShopSerializer, ProductInfoSerializer, \
-    OrderItemSerializer, OrderSerializer, ContactSerializer
+    OrderItemSerializer, OrderSerializer, ContactSerializer, ConfirmEmailTokenSerializer
 from backend.tasks import send_email, get_import
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import SessionAuthentication
@@ -27,6 +28,22 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
+class CrashView(APIView):
+    """
+    Стандартный класс для отслеживания ошибок
+    """
+    def get(self, request):
+        """
+        Запрос для отслеживания GET ошибок
+        """
+        raise Exception("Это тестовое исключение")
+
+    def post(self, request):
+        """
+        Запрос для отслеживания POST ошибок
+        """
+        return Response({"message": "OK"})
+    
 class HomeView(TemplateView):
     template_name = 'home.html'
     
@@ -38,6 +55,9 @@ class RegisterUser(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
+        """
+        Запрос для отправки данных при регистрации
+        """
         if {'first_name', 'last_name', 'email', 'password', 'company', 'position'}.issubset(self.request.data):
             try:
                 validate_password(request.data['password'])
@@ -73,6 +93,9 @@ class ConfirmUser(APIView):
     Класс для подтверждения почтового адреса
     """
     def post(self, request, *args, **kwargs):
+        """
+        Запрос для отправки данных для подвтерждения адреса
+        """
         user_email = request.data['email']
         user = User.objects.filter(email=user_email).first()
         user_id = user.id
@@ -89,6 +112,7 @@ class ConfirmUser(APIView):
                 send_email.delay(email_subject, email_message, user.email)  # Отложенная отправка письма через Celery
                 return JsonResponse({'Status': True})
             else:
+                sentry_sdk.capture_message(f"Неверный токен или email для пользователя {user.email}")
                 return JsonResponse({'Status': False, 'Errors': 'The token or email is incorrectly specified'})
 
         return JsonResponse({'Status': False, 'Errors': 'All necessary arguments are not specified'})
@@ -99,7 +123,9 @@ class LoginUser(APIView):
     """
 
     def post(self, request, *args, **kwargs):
-
+        """
+        Запрос для авторизации юзеров
+        """
         if {'email', 'password'}.issubset(request.data):
             user = authenticate(request, username=request.data['email'], password=request.data['password'])
 
@@ -120,6 +146,9 @@ class UserDetails(APIView):
     """
 
     def get(self, request, *args, **kwargs):
+        """
+        Запрос для получении информации о юхере
+        """
         if request.user.is_authenticated:  # Проверяем, аутентифицирован ли пользователь
             serializer = UserSerializer(request.user)
             return Response(serializer.data)
@@ -128,6 +157,9 @@ class UserDetails(APIView):
                             status=status.HTTP_401_UNAUTHORIZED)
 
     def post(self, request, *args, **kwargs):
+        """
+        Запрос для смены пароля
+        """
         if {'password'}.issubset(request.data):
             if 'password' in request.data:
                 try:
@@ -194,7 +226,7 @@ class ProductInfoView(ModelViewSet):
     
     queryset = ProductInfo.objects.all()
     serializer_class = ProductInfoSerializer
-    http_method_names = ['get', ]
+    http_method_names = ['get', 'post']
     """
     Класс для поиска товаров
     """
@@ -216,6 +248,13 @@ class ProductInfoView(ModelViewSet):
             'product_parameters__parameter').distinct()
         serializer = ProductInfoSerializer(queryset, many=True)
         return Response(serializer.data)
+    
+    def post(self, request, *args, **kwargs):
+        serializer = ProductInfoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class BasketView(APIView):
     """

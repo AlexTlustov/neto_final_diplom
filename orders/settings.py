@@ -14,6 +14,8 @@ from pathlib import Path
 from os import path, environ
 import sys
 from dotenv import load_dotenv
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +36,11 @@ ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
 # Application definition
 
 INSTALLED_APPS = [
+    # django-jet
+    'jet',
+    'jet.dashboard',    
     'django.contrib.admin',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -47,13 +53,23 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'backend.templatetags',
+
+    # drf_spectacular
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
     
     # alluth
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.vk'
+    'allauth.socialaccount.providers.vk',
+
+    # cacheops
+    'cacheops',
+
+    # ImageKit
+    'imagekit',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +99,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -193,6 +210,7 @@ REST_FRAMEWORK = {
     },
     
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 AUTHENTICATION_BACKENDS = [
@@ -224,7 +242,7 @@ SOCIALACCOUNT_FORMS = {'signup': 'backend.forms.MyCustomSignupForm'}
 
 #Redis and celery settings
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
 CELERY_BROKER_TRANSPORT_OPTION = {'visibility_timeout': 3600}
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
@@ -239,3 +257,53 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_RATE_LIMITS = False
+
+# django-jet
+JET_DEFAULT_THEME = 'light-violet'
+
+# Sentry
+sentry_sdk.init(
+    dsn="https://bb92c1c659595fffc3a103cbf342d958@o4507203436019712.ingest.de.sentry.io/4507203463938128",
+    traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+)
+
+# django-cacheops
+CACHEOPS_REDIS = {
+    'host': 'localhost',  
+    'port': 6379,
+    'db': 1,
+    'socket_timeout': 3,
+}
+
+CACHEOPS_REDIS = "redis://localhost:6379/1"
+
+CACHEOPS = {
+    'auth.user': {'ops': ('get', 'fetch', 'count'), 'timeout': 60*15},
+    'backend.Product': {'ops': ('get', 'fetch', 'count'), 'timeout': 60*60},
+    'backend.ProductInfo': {'ops': ('get', 'fetch', 'count'), 'timeout': 60*60},
+    'backend.Order': {'ops': ('get', 'fetch', 'count'), 'timeout': 60*60},
+    'backend.OrderItem': {'ops': ('get', 'fetch', 'count'), 'timeout': 60*60},
+    'backend.Category': {'ops': ('get', 'fetch', 'count'), 'timeout': 60*60},
+}
+
+# DRF-Spectacular
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Orders',
+    'DESCRIPTION': 'Thesis from netology on API for retail chain stores',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False
+}
+
+# django-versatileimagefield
+# VERSATILEIMAGEFIELD_SETTINGS = {
+#     'cache_length': 2592000,
+#     'cache_name': 'versatileimagefield_cache',
+#     'jpeg_resize_quality': 70,
+#     'sized_directory_name': '__sized__',
+#     'filtered_directory_name': '__filtered__',
+#     'placeholder_directory_name': '__placeholder__',
+#     'create_images_on_demand': False,
+#     'image_key_post_processor': None,
+#     'progressive_jpeg': False
+# }

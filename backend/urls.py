@@ -2,9 +2,10 @@ from django.urls import path
 from django_rest_passwordreset.views import reset_password_request_token, reset_password_confirm
 from .views import PartnerUpdate, RegisterUser, LoginUser, CategoryView, ShopView, ProductInfoView, \
     BasketView, \
-    UserDetails, ContactView, OrderView, PartnerState, PartnerOrders, ConfirmUser, OrderListView, OrderDetailView
+    UserDetails, ContactView, OrderView, PartnerState, PartnerOrders, ConfirmUser, OrderListView, OrderDetailView, CrashView
 from rest_framework.routers import DefaultRouter
 from . import views
+
 
 r = DefaultRouter()
 r.register('products', ProductInfoView)
@@ -29,4 +30,5 @@ urlpatterns += [
     path('order', OrderView.as_view(), name='order'),
     path('orders/', views.OrderListView.as_view(), name='order_list'),
     path('orders/<int:pk>/', views.OrderDetailView.as_view(), name='order_detail'),
+    path('crash/', CrashView.as_view()),
 ]

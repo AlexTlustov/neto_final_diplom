@@ -2,6 +2,8 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 from django.utils.translation import gettext_lazy as _
 from django_rest_passwordreset.tokens import get_token_generator
 
@@ -25,12 +27,11 @@ USER_TYPE_CHOICES = (
 class UserManager(BaseUserManager):
     use_in_migrations = True
     """
-    Custom user model manager where email is the unique identifiers
-    for authentication instead of usernames.
+    Модель управление пользователями
     """
     def create_user(self, email, password, **extra_fields):
         """
-        Create and save a User with the given email and password.
+        Команда для создания обычного пользователя
         """
         if not email:
             raise ValueError(_('The Email must be set'))
@@ -42,7 +43,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         """
-        Create and save a SuperUser with the given email and password.
+        Команда для создания супер пользователя
         """
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -92,6 +93,9 @@ class User(AbstractUser):
         return f'{self.first_name} {self.last_name}\n{self.email}'
 
 class Shop(models.Model):
+    """
+    Стандартная модель магазина
+    """
     name = models.CharField(max_length=50, verbose_name='Название')
     url = models.URLField(verbose_name='Ссылка', null=True, blank=True)
     user = models.OneToOneField(User, verbose_name='Пользователь',
@@ -108,6 +112,9 @@ class Shop(models.Model):
         return self.name
 
 class Category(models.Model):
+    """
+    Стандартная модель категорий
+    """
     name = models.CharField(max_length=40, verbose_name='Название')
     shops = models.ManyToManyField(Shop, verbose_name='Магазины', related_name='categories', blank=True)
 
@@ -120,6 +127,9 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
+    """
+    Стандартная модель продукта
+    """
     name = models.CharField(max_length=80, verbose_name='Название')
     category = models.ForeignKey(Category, verbose_name='Категория', related_name='products', blank=True,
                                 on_delete=models.CASCADE)
@@ -133,6 +143,9 @@ class Product(models.Model):
         return self.name
 
 class ProductInfo(models.Model):
+    """
+    Стандартная модель информации о продукте
+    """
     name = models.CharField(max_length=60, verbose_name='Название', blank=True)
     model = models.CharField(max_length=80, verbose_name='Модель', blank=True)
     external_id = models.PositiveIntegerField(verbose_name='Внешний id')
@@ -143,6 +156,11 @@ class ProductInfo(models.Model):
     quantity = models.PositiveIntegerField(verbose_name='Количество')
     price = models.PositiveIntegerField(verbose_name='Цена')
     price_rrc = models.PositiveIntegerField(verbose_name='Рекомендуемая розничная цена')
+    image = models.ImageField(upload_to='product_images', verbose_name='Изображение продукта', default=None)
+    product_image = ImageSpecField(source='image',
+                                      processors=[ResizeToFill(100, 50)],
+                                      format='JPEG',
+                                      options={'quality': 60})
 
     class Meta:
         verbose_name = 'Информация о продукте'
@@ -155,6 +173,9 @@ class ProductInfo(models.Model):
         return f'{self.shop.name}: {self.product.name}\n{self.price}: {self.price_rrc}'
 
 class Parameter(models.Model):
+    """
+    Стандартная модель параметров
+    """
     name = models.CharField(max_length=40, verbose_name='Название')
 
     class Meta:
@@ -166,6 +187,9 @@ class Parameter(models.Model):
         return self.name
 
 class ProductParameter(models.Model):
+    """
+    Стандартная модель параметров продуктов
+    """
     product_info = models.ForeignKey(ProductInfo, verbose_name='Информация о продукте',
                                     related_name='product_parameters', blank=True,
                                     on_delete=models.CASCADE)
@@ -184,6 +208,9 @@ class ProductParameter(models.Model):
         return f'{self.product_info.model}: {self.parameter.name}'
 
 class Contact(models.Model):
+    """
+    Стандартная модель контактной информации пользователей
+    """
     user = models.ForeignKey(User, verbose_name='Пользователь',
                             related_name='contacts', blank=True,
                             on_delete=models.CASCADE)
@@ -206,6 +233,9 @@ class Contact(models.Model):
         return f'{self.user}\n{self.city}, {self.street}, {self.house}, {self.apartment}\n{self.phone}'
 
 class Order(models.Model):
+    """
+    Стандартная модель заказов
+    """
     user = models.ForeignKey(User, verbose_name='Пользователь',
                             related_name='orders', blank=True,
                             on_delete=models.CASCADE)
@@ -224,6 +254,9 @@ class Order(models.Model):
         return f'{self.user}: {self.date}'
 
 class OrderItem(models.Model):
+    """
+    Стандартная модель корзины
+    """
     order = models.ForeignKey(Order, verbose_name='Заказ',
                             related_name='ordered_items', blank=True,
                             on_delete=models.CASCADE)
@@ -243,6 +276,11 @@ class OrderItem(models.Model):
         ]
 
 class ConfirmEmailToken(models.Model):
+
+    """
+    Подтверждение токена
+    """
+
     class Meta:
         verbose_name = 'Токен подтверждения Email'
         verbose_name_plural = 'Токены подтверждения Email'

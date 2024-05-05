@@ -166,4 +166,9 @@ celery -A orders worker -l INFO
 ```
 pytest
 ```
+- Создать файл настроек DRF-Spectacular
+```
+python ./manage.py spectacular --color --file schema.yml
+```
+
 
